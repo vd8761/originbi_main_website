@@ -20,7 +20,7 @@ export default function PrivacyPolicy() {
           >
             Privacy Policy
           </motion.h1>
-          <p className="text-xl text-blue-200 mb-8 italic">Last updated on 10th July 2025</p>
+          <p className="text-xl text-blue-200 mb-8 italic">Last updated on 16th April 2026</p>
           <div className="w-24 h-1 bg-accent mx-auto rounded-full"></div>
         </div>
       </section>
@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
                 "Personal details such as name, email address, phone number, age, gender",
                 "Assessment responses, survey data, and psychometric inputs",
                 "Usage data including device information, browser type, session activity",
-                "Communication data when you contact us for support or queries"
+                "Communication data when you contact us for support or queries via our Contact Us form"
               ]
             },
             {
@@ -70,6 +70,7 @@ export default function PrivacyPolicy() {
               title: "Data Sharing & Disclosure",
               content: "We do not sell or rent your personal data. Information may be shared only:",
               list: [
+                "With trusted third-party service providers (such as secure email routing services) strictly for the purpose of communicating with you",
                 "With trusted service providers under strict confidentiality",
                 "When required by law, court order, or government authority",
                 "In anonymized and aggregated form for analytics or research"
@@ -124,7 +125,7 @@ export default function PrivacyPolicy() {
             <div className="bg-blue-50 rounded-xl p-8 text-gray-700 space-y-3 border border-blue-100">
               <p><strong>Email:</strong> info@originbi.com</p>
               <p><strong>Mobile:</strong> +91-9445997283</p>
-              <p><strong>Address:</strong> Origin BI MindWorks Pvt Ltd, Guindy, Chennai, Tamil Nadu, India</p>
+              <p><strong>Address:</strong> Origin BI MindWorks Pvt Ltd, 21B, First Floor, 5th Cross Street, South phase, Industrial Estate, Guindy, Chennai – 600032</p>
             </div>
           </section>
         </motion.div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Linkedin, Twitter } from 'lucide-react';
+import { Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -78,6 +78,9 @@ export default function Layout({ children }: LayoutProps) {
               </a>
               <a href="https://www.linkedin.com/company/originbimindworks/" target="_blank" rel="noopener noreferrer" className="text-[#2495ffff] hover:opacity-80 transition-opacity">
                 <Linkedin className="w-5 h-5" />
+              </a>
+              <a href="https://www.youtube.com/@OriginBIMindworks" target="_blank" rel="noopener noreferrer" className="text-[#ff0000ff] hover:opacity-80 transition-opacity">
+                <Youtube className="w-5 h-5" />
               </a>
             </div>
           </div>

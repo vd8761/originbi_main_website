@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import cors from "cors";
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import { getContactAdminEmailTemplate, getContactUserEmailTemplate } from "./src/utils/emailTemplates.js";
 
 dotenv.config();
 
@@ -52,13 +53,7 @@ async function startServer() {
           Subject: { Data: `New Contact Form Submission from ${name}` },
           Body: {
             Html: {
-              Data: `
-                <h3>New Query Received</h3>
-                <p><strong>Name:</strong> ${name}</p>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Message:</strong></p>
-                <p>${message}</p>
-              `,
+              Data: getContactAdminEmailTemplate(name, email, message),
             },
           },
         },
@@ -75,15 +70,7 @@ async function startServer() {
           Subject: { Data: "Thank you for contacting Origin BI MindWorks" },
           Body: {
             Html: {
-              Data: `
-                <h3>Hello ${name},</h3>
-                <p>Thank you for reaching out to us. We have received your query and our team will get back to you shortly.</p>
-                <hr />
-                <p><strong>Your Message for Review:</strong></p>
-                <p style="white-space: pre-wrap; background-color: #f4f4f4; padding: 15px; border-radius: 5px;">${message}</p>
-                <hr />
-                <p>Best Regards,<br>Origin BI MindWorks Team</p>
-              `,
+              Data: getContactUserEmailTemplate(name, email, message),
             },
           },
         },

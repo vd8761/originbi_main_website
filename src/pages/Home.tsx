@@ -422,8 +422,8 @@ export default function Home() {
                   <h4 className="text-xl font-bold mb-1">Address</h4>
                   <p className="text-lg text-gray-600 leading-relaxed">
                     Origin BI MindWorks Pvt Ltd,<br />
-                    Guindy, Chennai,<br />
-                    Tamil Nadu, India
+                    21B, First Floor, 5th Cross Street, South phase,<br />
+                    Industrial Estate, Guindy, Chennai – 600032
                   </p>
                 </div>
               </div>

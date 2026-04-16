@@ -20,7 +20,7 @@ export default function TermsAndConditions() {
           >
             Terms & Conditions
           </motion.h1>
-          <p className="text-xl text-blue-200 mb-8 italic">Last updated on 10th July 2025</p>
+          <p className="text-xl text-blue-200 mb-8 italic">Last updated on 16th April 2026</p>
           <div className="w-24 h-1 bg-accent mx-auto rounded-full"></div>
         </div>
       </section>
@@ -89,6 +89,11 @@ export default function TermsAndConditions() {
               id: 8,
               title: "Governing Law & Jurisdiction",
               content: "These Terms and Conditions shall be governed by and construed in accordance with the laws of India. Any disputes shall be subject to the exclusive jurisdiction of courts located in India."
+            },
+            {
+              id: 9,
+              title: "Communications via Contact Forms",
+              content: "By submitting your information via our Contact Us form, you consent to receive electronic communications from us regarding your inquiry. You agree that any information you provide is accurate and complete."
             }
           ].map((section) => (
             <section key={section.id}>
@@ -110,13 +115,13 @@ export default function TermsAndConditions() {
 
           <section>
             <h3 className="text-2xl font-bold mb-6 flex items-center text-primary">
-              <span className="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 text-lg">9</span>
+              <span className="bg-primary text-white w-10 h-10 rounded-full flex items-center justify-center mr-4 text-lg">10</span>
               Contact Information
             </h3>
             <div className="bg-blue-50 rounded-xl p-8 text-gray-700 space-y-3 border border-blue-100">
               <p><strong>Email:</strong> info@originbi.com</p>
               <p><strong>Mobile:</strong> +91-9445997283</p>
-              <p><strong>Address:</strong> Origin BI MindWorks Pvt Ltd, Guindy, Chennai, Tamil Nadu, India</p>
+              <p><strong>Address:</strong> Origin BI MindWorks Pvt Ltd, 21B, First Floor, 5th Cross Street, South phase, Industrial Estate, Guindy, Chennai – 600032</p>
             </div>
           </section>
         </motion.div>
