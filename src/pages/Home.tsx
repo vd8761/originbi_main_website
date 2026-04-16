@@ -522,6 +522,12 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
+              {/* Contact Illustration */}
+              <img
+                src="/assets/images/contact-us.png"
+                alt="Contact Us Illustration"
+                className="w-full max-w-lg mx-auto lg:mx-0 object-contain"
+              />
               <div className="flex items-start gap-6">
                 <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0">
                   <Mail className="text-primary w-6 h-6" />
