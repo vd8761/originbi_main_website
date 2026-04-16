@@ -16,7 +16,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="container mx-auto px-4 flex justify-between items-center">
           <Link to="/" className="flex items-center">
             <img
-              src="https://originbi.com/assests/images/Origin-BI-logo.png"
+              src="/assets/images/Origin-BI-logo.webp"
               alt="OriginBI Logo"
               className="h-8"
             />
@@ -57,7 +57,7 @@ export default function Layout({ children }: LayoutProps) {
             <div className="flex flex-col items-center md:items-start">
               <Link to="/">
                 <img
-                  src="https://originbi.com/assests/images/Origin-BI-logo.png"
+                  src="/assets/images/Origin-BI-logo.webp"
                   alt="OriginBI Logo"
                   className="h-10 mb-4"
                 />
@@ -86,3 +86,4 @@ export default function Layout({ children }: LayoutProps) {
     </div>
   );
 }
+

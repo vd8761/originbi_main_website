@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 bg-[url('https://originbi.com/assests/images/Origin_BI_Background.png')] bg-cover bg-center">
+      <section className="relative py-20 lg:py-32 bg-[url('/assets/images/Origin_BI_Background.webp')] bg-cover bg-center">
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <motion.div 
@@ -79,19 +79,19 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="relative z-10 p-4 lg:p-8 bg-[url('https://originbi.com/assests/images/background-round.png')] bg-contain bg-no-repeat bg-center">
+              <div className="relative z-10 p-4 lg:p-8 bg-[url('/assets/images/background-round.webp')] bg-contain bg-no-repeat bg-center">
                 <img
-                  src="https://originbi.com/assests/images/banner1.jpg"
+                  src="/assets/images/banner1.webp"
                   alt="Healthcare Professionals"
                   className="rounded-[50px] w-full lg:w-[46%] mx-auto shadow-2xl"
                 />
                 <img
-                  src="https://originbi.com/assests/images/banner2.jpg"
+                  src="/assets/images/banner2.webp"
                   alt="Meeting"
                   className="hidden lg:block absolute top-[10%] right-0 w-[240px] rounded-[30px] shadow-xl"
                 />
                 <img
-                  src="https://originbi.com/assests/images/banner3.jpg"
+                  src="/assets/images/banner3.webp"
                   alt="Happy Family"
                   className="hidden lg:block absolute bottom-[10%] right-0 w-[240px] rounded-[30px] shadow-xl"
                 />
@@ -143,9 +143,9 @@ export default function Home() {
             variants={staggerContainer}
           >
             {[
-              { title: "Mind Wellness", desc: "Mental clarity and emotional strength in daily workflows.", icon: "https://originbi.com/assests/images/core1.svg" },
-              { title: "Agile Practices", desc: "Fast, focused, and flexible work systems tailored for Indian teams.", icon: "https://originbi.com/assests/images/core2.png" },
-              { title: "Accountability", desc: "Role-based ownership and transparent execution.", icon: "https://originbi.com/assests/images/core3.png" }
+              { title: "Mind Wellness", desc: "Mental clarity and emotional strength in daily workflows.", icon: "/assets/images/core1.svg" },
+              { title: "Agile Practices", desc: "Fast, focused, and flexible work systems tailored for Indian teams.", icon: "/assets/images/core2.webp" },
+              { title: "Accountability", desc: "Role-based ownership and transparent execution.", icon: "/assets/images/core3.webp" }
             ].map((pillar, idx) => (
               <motion.div key={idx} variants={fadeIn} className="feature-card group hover:shadow-xl">
                 <img src={pillar.icon} alt={pillar.title} className="w-20 h-20 mx-auto mb-6" />
@@ -168,8 +168,8 @@ export default function Home() {
             variants={staggerContainer}
           >
             {[
-              { title: "Frugal Lifestyle", desc: "Simplify work. Reduce waste. Focus on what truly matters.", icon: "https://originbi.com/assests/images/core4.svg" },
-              { title: "Know Your Strength", desc: "Discover personal power and build a culture of trust and energy.", icon: "https://originbi.com/assests/images/core5.png" }
+              { title: "Frugal Lifestyle", desc: "Simplify work. Reduce waste. Focus on what truly matters.", icon: "/assets/images/core4.svg" },
+              { title: "Know Your Strength", desc: "Discover personal power and build a culture of trust and energy.", icon: "/assets/images/core5.webp" }
             ].map((pillar, idx) => (
               <motion.div key={idx} variants={fadeIn} className="feature-card group hover:shadow-xl">
                 <img src={pillar.icon} alt={pillar.title} className="w-20 h-20 mx-auto mb-6" />
@@ -210,10 +210,10 @@ export default function Home() {
             variants={staggerContainer}
           >
             {[
-              { title: "Agile for Indian Teams", desc: "Scrum, sprints, stand-ups, and task flows customized to Indian team dynamics.", icon: "https://originbi.com/assests/images/solution1.png", bg: "bg-[#faf7ed]", border: "hover:border-[#ffcd4d]" },
-              { title: "Workplace Wellness", desc: "Mindful productivity, stress reduction, and psychological safety workshops.", icon: "https://originbi.com/assests/images/solution2.png", bg: "bg-[#edf4fb]", border: "hover:border-[#007aff]" },
-              { title: "Frugal Work Strategy", desc: "Do more with less task design, energy management, minimalist execution.", icon: "https://originbi.com/assests/images/solution3.png", bg: "bg-[#dbe4d1]", border: "hover:border-[#198754]" },
-              { title: "Personal Agility Coaching", desc: "Live the Agile lifestyle: balance goals, improve habits, track personal sprints.", icon: "https://originbi.com/assests/images/solution4.png", bg: "bg-[#faf7ed]", border: "hover:border-[#ffcd4d]" }
+              { title: "Agile for Indian Teams", desc: "Scrum, sprints, stand-ups, and task flows customized to Indian team dynamics.", icon: "/assets/images/solution1.webp", bg: "bg-[#faf7ed]", border: "hover:border-[#ffcd4d]" },
+              { title: "Workplace Wellness", desc: "Mindful productivity, stress reduction, and psychological safety workshops.", icon: "/assets/images/solution2.webp", bg: "bg-[#edf4fb]", border: "hover:border-[#007aff]" },
+              { title: "Frugal Work Strategy", desc: "Do more with less task design, energy management, minimalist execution.", icon: "/assets/images/solution3.webp", bg: "bg-[#dbe4d1]", border: "hover:border-[#198754]" },
+              { title: "Personal Agility Coaching", desc: "Live the Agile lifestyle: balance goals, improve habits, track personal sprints.", icon: "/assets/images/solution4.webp", bg: "bg-[#faf7ed]", border: "hover:border-[#ffcd4d]" }
             ].map((sol, idx) => (
               <motion.div key={idx} variants={fadeIn} className={`zauto-feature-card ${sol.bg} border-transparent ${sol.border} hover:bg-[#F6F4FF] p-10`}>
                 <div className="mb-8">
@@ -251,7 +251,7 @@ export default function Home() {
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-4">
                     <img
-                      src="https://originbi.com/assests/images/check-icon.png"
+                      src="/assets/images/check-icon.webp"
                       alt="Check"
                       className="w-6 h-6 flex-shrink-0"
                       referrerPolicy="no-referrer"
@@ -270,7 +270,7 @@ export default function Home() {
               transition={{ duration: 0.8 }}
             >
               <img
-                src="https://originbi.com/assests/images/why-origin.jpg"
+                src="/assets/images/why-origin.webp"
                 alt="Team Discussion"
                 className="rounded-[2rem] shadow-2xl w-full"
               />
@@ -343,6 +343,21 @@ export default function Home() {
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   ></textarea>
                 </div>
+
+                <div className="flex items-start gap-3">
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    required
+                    className="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
+                  />
+                  <label htmlFor="terms" className="text-sm text-gray-600 leading-relaxed">
+                    By clicking submit, you agree to our{' '}
+                    <a href="/terms-and-conditions" className="text-primary hover:underline font-semibold">Terms and Conditions</a>{' '}
+                    and{' '}
+                    <a href="/privacy-policy" className="text-primary hover:underline font-semibold">Privacy Policy</a>.
+                  </label>
+                </div>
                 
                 <button
                   type="submit"
@@ -352,12 +367,12 @@ export default function Home() {
                   {status === 'loading' ? (
                     <>
                       <Loader2 className="w-5 h-5 animate-spin" />
-                      Sending...
+                      Submitting...
                     </>
                   ) : (
                     <>
                       <Send className="w-5 h-5" />
-                      Send Message
+                      Submit
                     </>
                   )}
                 </button>
@@ -445,3 +460,4 @@ export default function Home() {
     </div>
   );
 }
+
