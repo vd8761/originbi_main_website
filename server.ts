@@ -30,10 +30,10 @@ async function startServer() {
 
   // API Route for Contact Form
   app.post("/api/contact", async (req, res) => {
-    const { name, email, message } = req.body;
+    const { name, email, phone, country, state, city, message } = req.body;
 
-    if (!name || !email || !message) {
-      return res.status(400).json({ error: "All fields are required" });
+    if (!name || !email || !phone || !message) {
+      return res.status(400).json({ error: "Name, email, phone, and message are required" });
     }
 
     try {
@@ -53,7 +53,7 @@ async function startServer() {
           Subject: { Data: `New Contact Form Submission from ${name}` },
           Body: {
             Html: {
-              Data: getContactAdminEmailTemplate(name, email, message),
+              Data: getContactAdminEmailTemplate(name, email, phone, country, state, city, message),
             },
           },
         },
@@ -70,7 +70,7 @@ async function startServer() {
           Subject: { Data: "Thank you for contacting Origin BI MindWorks" },
           Body: {
             Html: {
-              Data: getContactUserEmailTemplate(name, email, message),
+              Data: getContactUserEmailTemplate(name, email, phone, country, state, city, message),
             },
           },
         },

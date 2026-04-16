@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, CheckCircle2, Mail, Phone, MapPin, Send, Loader2 } from 'lucide-react';
 
@@ -17,8 +17,75 @@ const staggerContainer = {
 };
 
 export default function Home() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', email: '', phone: '', country: '', state: '', city: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+  // Location states
+  const [countries, setCountries] = useState<string[]>([]);
+  const [states, setStates] = useState<string[]>([]);
+  const [cities, setCities] = useState<string[]>([]);
+  const [loadingLocation, setLoadingLocation] = useState({ countries: false, states: false, cities: false });
+
+  useEffect(() => {
+    // Fetch countries
+    setLoadingLocation(prev => ({ ...prev, countries: true }));
+    fetch('https://countriesnow.space/api/v0.1/countries')
+      .then(res => res.json())
+      .then(data => {
+        if (!data.error) {
+          setCountries(data.data.map((item: any) => item.country));
+        }
+      })
+      .catch(console.error)
+      .finally(() => setLoadingLocation(prev => ({ ...prev, countries: false })));
+  }, []);
+
+  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedCountry = e.target.value;
+    setFormData(prev => ({ ...prev, country: selectedCountry, state: '', city: '' }));
+    setStates([]);
+    setCities([]);
+    
+    if (selectedCountry) {
+      setLoadingLocation(prev => ({ ...prev, states: true }));
+      fetch('https://countriesnow.space/api/v0.1/countries/states', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ country: selectedCountry })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (!data.error) {
+            setStates(data.data.states.map((item: any) => item.name));
+          }
+        })
+        .catch(console.error)
+        .finally(() => setLoadingLocation(prev => ({ ...prev, states: false })));
+    }
+  };
+
+  const handleStateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedState = e.target.value;
+    setFormData(prev => ({ ...prev, state: selectedState, city: '' }));
+    setCities([]);
+    
+    if (selectedState && formData.country) {
+      setLoadingLocation(prev => ({ ...prev, cities: true }));
+      fetch('https://countriesnow.space/api/v0.1/countries/state/cities', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ country: formData.country, state: selectedState })
+      })
+        .then(res => res.json())
+        .then(data => {
+          if (!data.error) {
+            setCities(data.data);
+          }
+        })
+        .catch(console.error)
+        .finally(() => setLoadingLocation(prev => ({ ...prev, cities: false })));
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,7 +100,7 @@ export default function Home() {
 
       if (response.ok) {
         setStatus('success');
-        setFormData({ name: '', email: '', message: '' });
+        setFormData({ name: '', email: '', phone: '', country: '', state: '', city: '', message: '' });
       } else {
         setStatus('error');
       }
@@ -330,6 +397,66 @@ export default function Home() {
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
                   </div>
+                  <div>
+                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      required
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                      placeholder="+91-1234567890"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="country" className="block text-sm font-semibold text-gray-700 mb-2">Country</label>
+                    <div className="relative">
+                      <select
+                        id="country"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none bg-white min-h-[50px]"
+                        value={formData.country}
+                        onChange={handleCountryChange}
+                        disabled={loadingLocation.countries}
+                      >
+                        <option value="">Select Country</option>
+                        {countries.map((c) => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                      {loadingLocation.countries && <Loader2 className="w-4 h-4 animate-spin absolute right-4 top-4 text-gray-400" />}
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="state" className="block text-sm font-semibold text-gray-700 mb-2">State/Region</label>
+                    <div className="relative">
+                      <select
+                        id="state"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none bg-white min-h-[50px]"
+                        value={formData.state}
+                        onChange={handleStateChange}
+                        disabled={!formData.country || loadingLocation.states || states.length === 0}
+                      >
+                        <option value="">Select State</option>
+                        {states.map((s) => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                      {loadingLocation.states && <Loader2 className="w-4 h-4 animate-spin absolute right-4 top-4 text-gray-400" />}
+                    </div>
+                  </div>
+                  <div>
+                    <label htmlFor="city" className="block text-sm font-semibold text-gray-700 mb-2">City</label>
+                    <div className="relative">
+                      <select
+                        id="city"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none bg-white min-h-[50px]"
+                        value={formData.city}
+                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                        disabled={!formData.state || loadingLocation.cities || cities.length === 0}
+                      >
+                        <option value="">Select City</option>
+                        {cities.map((c) => <option key={c} value={c}>{c}</option>)}
+                      </select>
+                      {loadingLocation.cities && <Loader2 className="w-4 h-4 animate-spin absolute right-4 top-4 text-gray-400" />}
+                    </div>
+                  </div>
                 </div>
                 <div>
                   <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">Message</label>
@@ -352,10 +479,11 @@ export default function Home() {
                     className="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
                   />
                   <label htmlFor="terms" className="text-sm text-gray-600 leading-relaxed">
-                    By clicking submit, you agree to our{' '}
-                    <a href="/terms-and-conditions" className="text-primary hover:underline font-semibold">Terms and Conditions</a>{' '}
+                    By clicking submit, I agree to the{' '}
+                    <a href="/terms-and-conditions" className="text-primary hover:underline font-semibold">terms & conditions</a>{' '}
                     and{' '}
-                    <a href="/privacy-policy" className="text-primary hover:underline font-semibold">Privacy Policy</a>.
+                    <a href="/privacy-policy" className="text-primary hover:underline font-semibold">privacy policy</a>{' '}
+                    and give my consent to receive updates through SMS/Email.
                   </label>
                 </div>
                 

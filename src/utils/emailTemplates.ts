@@ -64,6 +64,10 @@ export const baseEmailStyles = `
 export const getContactUserEmailTemplate = (
   name: string,
   email: string,
+  phone: string,
+  country: string,
+  state: string,
+  city: string,
   message: string,
   assets: { logo: string } = { logo: 'https://originbi.com/assets/images/Origin-BI-logo.png' }
 ) => `
@@ -126,6 +130,22 @@ export const getContactUserEmailTemplate = (
                     <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0;">${email}</td>
                   </tr>
                   <tr>
+                    <td class="text-muted" style="font-size: 14px; color: #2F2F2F !important; padding: 5px 0; vertical-align: top;">Phone</td>
+                    <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0;">${phone}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted" style="font-size: 14px; color: #2F2F2F !important; padding: 5px 0; vertical-align: top;">Country</td>
+                    <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0;">${country || 'Not specified'}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted" style="font-size: 14px; color: #2F2F2F !important; padding: 5px 0; vertical-align: top;">State</td>
+                    <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0;">${state || 'Not specified'}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted" style="font-size: 14px; color: #2F2F2F !important; padding: 5px 0; vertical-align: top;">City</td>
+                    <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0;">${city || 'Not specified'}</td>
+                  </tr>
+                  <tr>
                     <td class="text-muted" style="font-size: 14px; color: #2F2F2F !important; padding: 5px 0; vertical-align: top;">Message</td>
                     <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0; white-space: pre-wrap;">${message}</td>
                   </tr>
@@ -161,6 +181,10 @@ export const getContactUserEmailTemplate = (
 export const getContactAdminEmailTemplate = (
   name: string,
   email: string,
+  phone: string,
+  country: string,
+  state: string,
+  city: string,
   message: string,
   assets: { logo: string } = { logo: 'https://originbi.com/assets/images/Origin-BI-logo.png' }
 ) => `
@@ -225,6 +249,22 @@ export const getContactAdminEmailTemplate = (
                     </td>
                   </tr>
                   <tr>
+                    <td class="text-muted" style="font-size: 14px; color: #2F2F2F !important; padding: 5px 0; vertical-align: top;">Phone</td>
+                    <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0;">${phone}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted" style="font-size: 14px; color: #2F2F2F !important; padding: 5px 0; vertical-align: top;">Country</td>
+                    <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0;">${country || 'Not specified'}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted" style="font-size: 14px; color: #2F2F2F !important; padding: 5px 0; vertical-align: top;">State</td>
+                    <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0;">${state || 'Not specified'}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-muted" style="font-size: 14px; color: #2F2F2F !important; padding: 5px 0; vertical-align: top;">City</td>
+                    <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0;">${city || 'Not specified'}</td>
+                  </tr>
+                  <tr>
                     <td class="text-muted" style="font-size: 14px; color: #2F2F2F !important; padding: 5px 0; vertical-align: top;">Message</td>
                     <td class="text-dark" style="font-size: 14px; color: #111111 !important; padding: 5px 0; white-space: pre-wrap;">${message}</td>
                   </tr>
@@ -250,4 +290,4 @@ export const getContactAdminEmailTemplate = (
   </center>
 </body>
 </html>
-`;
+`
