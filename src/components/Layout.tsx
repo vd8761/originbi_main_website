@@ -18,6 +18,7 @@ const NAV_LINKS = [
   { label: 'About', href: '/#about', isRoute: false },
   { label: 'Our Core', href: '/#core', isRoute: false },
   { label: 'Our Solution', href: '/#solution', isRoute: false },
+  { label: 'Contact Us', href: '/#contact', isRoute: false },
 ];
 
 export default function Layout({ children }: LayoutProps) {
@@ -48,7 +49,7 @@ export default function Layout({ children }: LayoutProps) {
       {/* Header */}
       <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-lg border-b border-gray-200/60 py-4">
         <div className="container mx-auto px-4 flex justify-between items-center">
-          <Link to="/" className="flex items-center relative z-[60]">
+          <Link to="/" className="flex items-center relative z-[60]" onClick={() => window.scrollTo(0, 0)}>
             <img
               src="/assets/images/Origin-BI-logo.webp"
               alt="OriginBI Logo"
@@ -60,7 +61,7 @@ export default function Layout({ children }: LayoutProps) {
           <div className="hidden md:flex space-x-8 items-center">
             {NAV_LINKS.map((link) =>
               link.isRoute ? (
-                <Link key={link.label} to={link.href} className="text-gray-900 hover:text-primary font-medium transition-colors">{link.label}</Link>
+                <Link key={link.label} to={link.href} onClick={() => link.href === '/' && window.scrollTo(0, 0)} className="text-gray-900 hover:text-primary font-medium transition-colors">{link.label}</Link>
               ) : (
                 <a key={link.label} href={link.href} className="text-gray-900 hover:text-primary font-medium transition-colors">{link.label}</a>
               )
@@ -124,7 +125,7 @@ export default function Layout({ children }: LayoutProps) {
       >
         {/* Panel Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-          <Link to="/" onClick={closeMenu} className="flex items-center">
+          <Link to="/" onClick={() => { closeMenu(); window.scrollTo(0, 0); }} className="flex items-center">
             <img
               src="/assets/images/Origin-BI-logo.webp"
               alt="OriginBI Logo"
@@ -151,7 +152,7 @@ export default function Layout({ children }: LayoutProps) {
             };
 
             return link.isRoute ? (
-              <Link key={link.label} to={link.href} onClick={closeMenu} className={className} style={style}>
+              <Link key={link.label} to={link.href} onClick={() => { closeMenu(); if (link.href === '/') window.scrollTo(0, 0); }} className={className} style={style}>
                 {link.label}
               </Link>
             ) : (
@@ -212,7 +213,7 @@ export default function Layout({ children }: LayoutProps) {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8">
             <div className="flex flex-col items-center md:items-start">
-              <Link to="/">
+              <Link to="/" onClick={() => window.scrollTo(0, 0)}>
                 <img
                   src="/assets/images/Origin-BI-logo.webp"
                   alt="OriginBI Logo"

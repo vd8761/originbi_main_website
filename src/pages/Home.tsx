@@ -516,7 +516,7 @@ export default function Home() {
 
             {/* Contact Details */}
             <motion.div 
-              className="lg:w-5/12 flex flex-col justify-center space-y-10"
+              className="lg:w-5/12 flex flex-col justify-start lg:pt-8 space-y-10"
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
