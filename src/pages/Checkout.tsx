@@ -69,8 +69,7 @@ export default function Checkout() {
               : 'https://membership.descienceosclub.com/api/webhooks/originbi';
 
             try {
-              // Send verification data securely to dosmembership backend
-              await fetch(webhookUrl, {
+              const webhookResponse = await fetch(webhookUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -85,16 +84,23 @@ export default function Checkout() {
                   razorpay_signature: response.razorpay_signature
                 })
               });
-            } catch (err) {
+
+              if (!webhookResponse.ok) {
+                  const errData = await webhookResponse.json();
+                  throw new Error(errData.error || "Webhook failed to process payment");
+              }
+
+              // Redirect back to dosmembership only on absolute success
+              const returnUrl = isLocal ? 'http://localhost:3000?payment=success' : 'https://membership.descienceosclub.com?payment=success';
+              setTimeout(() => {
+                window.location.href = returnUrl;
+              }, 2000);
+              
+            } catch (err: any) {
               console.error("Failed to update dosmembership database:", err);
+              setStatus('error');
+              setErrorMessage("Payment was captured by Razorpay, but our server failed to save your enrollment: " + (err.message || "Unknown error"));
             }
-
-            // Redirect back to dosmembership
-            const returnUrl = isLocal ? 'http://localhost:3000?payment=success' : 'https://membership.descienceosclub.com?payment=success';
-
-            setTimeout(() => {
-              window.location.href = returnUrl;
-            }, 2000);
           },
           prefill: {
             name: orderData.name,
