@@ -63,8 +63,33 @@ export default function Checkout() {
           handler: async function (response: any) {
             setStatus('success');
             
-            // Redirect back to dosmembership
             const isLocal = window.location.hostname === 'localhost';
+            const webhookUrl = isLocal 
+                ? 'http://localhost:3000/api/webhooks/originbi' 
+                : 'https://osf.descienceosclub.com/api/webhooks/originbi';
+
+            try {
+                // Send verification data securely to dosmembership backend
+                await fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: orderData.name,
+                        email: orderData.email,
+                        phone: orderData.phone,
+                        tier: orderData.tier,
+                        amount: orderData.amount,
+                        linkedin: orderData.linkedin,
+                        razorpay_payment_id: response.razorpay_payment_id,
+                        razorpay_order_id: response.razorpay_order_id,
+                        razorpay_signature: response.razorpay_signature
+                    })
+                });
+            } catch (err) {
+                console.error("Failed to update dosmembership database:", err);
+            }
+
+            // Redirect back to dosmembership
             const returnUrl = isLocal ? 'http://localhost:3000?payment=success' : 'https://osf.descienceosclub.com?payment=success';
             
             setTimeout(() => {

@@ -116,7 +116,7 @@ async function startServer() {
         return res.status(401).json({ error: "Invalid or expired token", details: err.message });
       }
 
-      const { amount, name, email, phone, tier } = decodedPayload;
+      const { amount, name, email, phone, tier, linkedin } = decodedPayload;
 
       const razorpay = new Razorpay({
         key_id: process.env.VITE_RAZORPAY_KEY_ID as string,
@@ -138,6 +138,8 @@ async function startServer() {
         name,
         email,
         phone,
+        tier,
+        linkedin
       });
     } catch (error) {
       console.error("Razorpay Order Creation Error:", error);
