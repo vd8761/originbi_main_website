@@ -91,7 +91,7 @@ export default function Checkout() {
               }
 
               // Redirect back to dosmembership only on absolute success
-              const returnUrl = isLocal ? 'http://localhost:3000?payment=success' : 'https://membership.descienceosclub.com?payment=success';
+              const returnUrl = isLocal ? `http://localhost:3000?payment=success&name=${encodeURIComponent(orderData.name)}&paymentId=${response.razorpay_payment_id}&orderId=${response.razorpay_order_id}` : `https://membership.descienceosclub.com?payment=success&name=${encodeURIComponent(orderData.name)}&paymentId=${response.razorpay_payment_id}&orderId=${response.razorpay_order_id}`;
               setTimeout(() => {
                 window.location.href = returnUrl;
               }, 2000);
