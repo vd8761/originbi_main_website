@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsAndConditions from './pages/TermsAndConditions';
 import Checkout from './pages/Checkout';
+import CheckoutNanogcc from './pages/CheckoutNanogcc';
 import ScrollToTop from './components/ScrollToTop';
 
 export default function App() {
@@ -13,6 +14,7 @@ export default function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/dosmembership/checkout" element={<Checkout />} />
+        <Route path="/nanogcc/checkout" element={<CheckoutNanogcc />} />
         <Route path="/*" element={
           <Layout>
             <Routes>
