@@ -5,16 +5,25 @@ import { fileURLToPath } from "url";
 import dotenv from "dotenv";
 import cors from "cors";
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import Razorpay from "razorpay";
+import jwt from "jsonwebtoken";
 import { getContactAdminEmailTemplate, getContactUserEmailTemplate } from "./src/utils/emailTemplates.js";
 
-dotenv.config();
+import fs from 'fs';
+
+// Try loading .env.local first, then fallback to .env
+if (fs.existsSync(path.resolve(process.cwd(), '.env.local'))) {
+    dotenv.config({ path: '.env.local', override: true });
+} else {
+    dotenv.config();
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = process.env.PORT || 5000;
 
   app.use(cors());
   app.use(express.json());
@@ -85,6 +94,54 @@ async function startServer() {
     } catch (error) {
       console.error("Error sending email via SES:", error);
       res.status(500).json({ error: "Failed to send email" });
+    }
+  });
+
+  // Razorpay Order Creation Route
+  app.post("/api/razorpay/create-order", async (req, res) => {
+    try {
+      const { token } = req.body;
+
+      if (!token) {
+        return res.status(400).json({ error: "Missing authentication token" });
+      }
+
+      let decodedPayload: any;
+      try {
+        if (!process.env.CROSS_DOMAIN_SECRET) {
+          throw new Error("Server configuration error: missing CROSS_DOMAIN_SECRET");
+        }
+        decodedPayload = jwt.verify(token, process.env.CROSS_DOMAIN_SECRET as string);
+      } catch (err: any) {
+        return res.status(401).json({ error: "Invalid or expired token", details: err.message });
+      }
+
+      const { amount, name, email, phone, tier } = decodedPayload;
+
+      const razorpay = new Razorpay({
+        key_id: process.env.VITE_RAZORPAY_KEY_ID as string,
+        key_secret: process.env.RAZORPAY_KEY_SECRET as string,
+      });
+
+      const options = {
+        amount: amount * 100, // in paise
+        currency: "INR",
+        receipt: `rcpt_${Date.now()}`,
+        notes: { tier, email },
+      };
+
+      const order = await razorpay.orders.create(options);
+
+      return res.json({
+        orderId: order.id,
+        amount: options.amount,
+        name,
+        email,
+        phone,
+      });
+    } catch (error) {
+      console.error("Razorpay Order Creation Error:", error);
+      return res.status(500).json({ error: "Failed to create order", details: error instanceof Error ? error.message : JSON.stringify(error) });
     }
   });
 
