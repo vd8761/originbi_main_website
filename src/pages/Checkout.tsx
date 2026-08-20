@@ -14,7 +14,7 @@ const loadScript = (src: string) => {
 export default function Checkout() {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
-  
+
   const [status, setStatus] = useState('initializing');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -53,8 +53,8 @@ export default function Checkout() {
 
         // Initialize Razorpay
         const options = {
-          key: import.meta.env.VITE_RAZORPAY_KEY_ID, 
-          amount: orderData.amount, 
+          key: import.meta.env.VITE_RAZORPAY_KEY_ID,
+          amount: orderData.amount,
           currency: "INR",
           name: "Descience Open Source Club",
           description: "Payment for DOS Fellowship",
@@ -62,38 +62,38 @@ export default function Checkout() {
           order_id: orderData.orderId,
           handler: async function (response: any) {
             setStatus('success');
-            
+
             const isLocal = window.location.hostname === 'localhost';
-            const webhookUrl = isLocal 
-                ? 'http://localhost:3000/api/webhooks/originbi' 
-                : 'https://osf.descienceosclub.com/api/webhooks/originbi';
+            const webhookUrl = isLocal
+              ? 'http://localhost:3000/api/webhooks/originbi'
+              : 'https://osf.descienceosclub.com/api/webhooks/originbi';
 
             try {
-                // Send verification data securely to dosmembership backend
-                await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: orderData.name,
-                        email: orderData.email,
-                        phone: orderData.phone,
-                        tier: orderData.tier,
-                        amount: orderData.amount,
-                        linkedin: orderData.linkedin,
-                        razorpay_payment_id: response.razorpay_payment_id,
-                        razorpay_order_id: response.razorpay_order_id,
-                        razorpay_signature: response.razorpay_signature
-                    })
-                });
+              // Send verification data securely to dosmembership backend
+              await fetch(webhookUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  name: orderData.name,
+                  email: orderData.email,
+                  phone: orderData.phone,
+                  tier: orderData.tier,
+                  amount: orderData.amount,
+                  linkedin: orderData.linkedin,
+                  razorpay_payment_id: response.razorpay_payment_id,
+                  razorpay_order_id: response.razorpay_order_id,
+                  razorpay_signature: response.razorpay_signature
+                })
+              });
             } catch (err) {
-                console.error("Failed to update dosmembership database:", err);
+              console.error("Failed to update dosmembership database:", err);
             }
 
             // Redirect back to dosmembership
             const returnUrl = isLocal ? 'http://localhost:3000?payment=success' : 'https://osf.descienceosclub.com?payment=success';
-            
+
             setTimeout(() => {
-                window.location.href = returnUrl;
+              window.location.href = returnUrl;
             }, 2000);
           },
           prefill: {
@@ -105,14 +105,14 @@ export default function Checkout() {
             color: "#07a97b"
           },
           modal: {
-            ondismiss: function() {
+            ondismiss: function () {
               setStatus('cancelled');
             }
           }
         };
 
         const rzp1 = new (window as any).Razorpay(options);
-        
+
         rzp1.on('payment.failed', function (response: any) {
           console.error(response.error);
           setStatus('error');
@@ -168,8 +168,8 @@ export default function Checkout() {
             </div>
             <h2 className="text-xl font-bold text-gray-800">Payment Failed</h2>
             <p className="text-red-500 mt-2">{errorMessage}</p>
-            <button 
-              onClick={() => window.history.back()} 
+            <button
+              onClick={() => window.history.back()}
               className="mt-6 w-full bg-primary text-white py-2 px-4 rounded-lg hover:bg-primary-dark transition-colors"
             >
               Go Back
@@ -184,11 +184,11 @@ export default function Checkout() {
             </div>
             <h2 className="text-xl font-bold text-gray-800">Payment Cancelled</h2>
             <p className="text-gray-500 mt-2">You cancelled the payment process.</p>
-            <button 
+            <button
               onClick={() => {
                 const isLocal = window.location.hostname === 'localhost';
-                window.location.href = isLocal ? 'http://localhost:3000' : 'https://osf.descienceosclub.com';
-              }} 
+                window.location.href = isLocal ? 'http://localhost:3000' : 'https://membership.descienceosclub.com';
+              }}
               className="mt-6 w-full border border-gray-300 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Return to Website
