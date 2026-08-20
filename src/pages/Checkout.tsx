@@ -58,7 +58,7 @@ export default function Checkout() {
           currency: "INR",
           name: "Descience Open Source Club",
           description: "Payment for DOS Fellowship",
-          image: "https://osf.descienceosclub.com/favicon.png",
+          image: "https://membership.descienceosclub.com/favicon.png",
           order_id: orderData.orderId,
           handler: async function (response: any) {
             setStatus('success');
@@ -66,7 +66,7 @@ export default function Checkout() {
             const isLocal = window.location.hostname === 'localhost';
             const webhookUrl = isLocal
               ? 'http://localhost:3000/api/webhooks/originbi'
-              : 'https://osf.descienceosclub.com/api/webhooks/originbi';
+              : 'https://membership.descienceosclub.com/api/webhooks/originbi';
 
             try {
               // Send verification data securely to dosmembership backend
@@ -90,7 +90,7 @@ export default function Checkout() {
             }
 
             // Redirect back to dosmembership
-            const returnUrl = isLocal ? 'http://localhost:3000?payment=success' : 'https://osf.descienceosclub.com?payment=success';
+            const returnUrl = isLocal ? 'http://localhost:3000?payment=success' : 'https://membership.descienceosclub.com?payment=success';
 
             setTimeout(() => {
               window.location.href = returnUrl;
