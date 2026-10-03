@@ -86,8 +86,8 @@ export default function Checkout() {
               });
 
               if (!webhookResponse.ok) {
-                  const errData = await webhookResponse.json();
-                  throw new Error(errData.error || "Webhook failed to process payment");
+                const errData = await webhookResponse.json();
+                throw new Error(errData.error || "Webhook failed to process payment");
               }
 
               // Redirect back to dosmembership only on absolute success
@@ -95,7 +95,7 @@ export default function Checkout() {
               setTimeout(() => {
                 window.location.href = returnUrl;
               }, 2000);
-              
+
             } catch (err: any) {
               console.error("Failed to update dosmembership database:", err);
               setStatus('error');

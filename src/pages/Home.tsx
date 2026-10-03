@@ -294,6 +294,71 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Portals Section */}
+      <section className="py-24 bg-gray-50">
+        <div className="container mx-auto px-4 text-center">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={fadeIn}
+            className="mb-16"
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold mb-6">Explore Our Platforms</h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Tailored solutions to unlock true potential at every stage of your journey.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto"
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+          >
+            {[
+              { 
+                title: "School Students", 
+                desc: "Discover your true calling and plan your career path early.", 
+                link: "https://pickmycareer.originbi.com", 
+                linkText: "pickmycareer.originbi.com"
+              },
+              { 
+                title: "College Students", 
+                desc: "Unlock opportunities and prepare for the professional world.", 
+                link: "https://discover.originbi.com", 
+                linkText: "discover.originbi.com"
+              },
+              { 
+                title: "Corporate Executive", 
+                desc: "Enhance leadership skills and accelerate your career growth.", 
+                link: "https://grow.originbi.com", 
+                linkText: "grow.originbi.com"
+              }
+            ].map((portal, idx) => (
+              <motion.div key={idx} variants={fadeIn} className="bg-white rounded-3xl p-10 shadow-sm border border-gray-100 hover:shadow-xl transition-all duration-300 flex flex-col h-full group">
+                <div className="flex-grow">
+                  <h3 className="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">{portal.title}</h3>
+                  <p className="text-gray-600 mb-8">{portal.desc}</p>
+                </div>
+                <div className="mt-auto">
+                  <a 
+                    href={portal.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="inline-flex items-center gap-2 text-primary font-semibold hover:text-accent transition-colors bg-primary/5 px-4 py-2 rounded-full"
+                  >
+                    {portal.linkText}
+                    <ArrowUpRight className="w-4 h-4" />
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* Why Choose Section */}
       <section className="py-24 bg-gray-50">
         <div className="container mx-auto px-4">
